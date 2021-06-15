@@ -1,0 +1,50 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id": "https://syndigo.com/schemas/ec/carousel.schema.json",
+    
+    "type": "object",
+    "properties": {
+        "widgetType": { "const": "Carousel" },
+        "widgetId": { "type": "string", "format": "uuid"},
+        "headerText": { "type": "string" },
+        "layout": { "type": "string", "enum": ["SlideShow", "StepByStep"] },
+        "items": {
+            "type": "array",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "asset": {
+                        "type": [ "null", "object" ],
+                        "description": "can be null for assetType None"
+                    },
+                    "assetType": {"type": "string", "enum": ["Video", "Image", "None"] },
+                    "caption": {"type": "string"},
+                    "colorOption": { "type": "string", "enum": [ "BlackOverWhite", "WhiteOverBlack", "BlackNoBackground", "WhiteNoBackground", "Custom" ] },
+                    "description": {"type":"string"},
+                    "fontBackgroundColor": { 
+                        "type": "string"
+                    },
+                    "fontColor": {
+                        "type": "string"
+                    },
+                    "fontOpacity": { "type":"integer", "minimum": 1, "maximum": 100 },
+                    "imageBackgroundColor": {
+                            "type": [ "null", "string" ]
+                        
+                    },
+                    "itemPosition": { "type": "string", "enum": [ "Left", "Center", "Right" ] },
+                    "link": { "type": [ "string", "null" ], "format": "uri-template" },
+                    "linkLabel": { "type": "string" },
+                    "textPosition": { "type": "string", "enum": [ "Left", "Center", "Right" ] },
+                    "textWidth": { "type":"integer", "minimum": 1, "maximum": 100 },
+                    "videoLoop": { "type":"boolean" }
+                },
+                "required": [ "asset", "assetType", "colorOption", "fontBackgroundColor", "fontColor", "fontOpacity", "imageBackgroundColor", "itemPosition", "link", "linkLabel", "textPosition", "textWidth", "videoLoop"],
+                "additionalProperties": false
+            }
+        }
+    },
+    "required": [ "widgetType", "widgetId", "headerText", "layout", "items" ],
+    "additionalProperties": false
+
+}
