@@ -1,21 +1,16 @@
 using System.Text.Json;
-using System;
 using Json.Schema;
 
 namespace ExperienceSchemas
 {
     class CarouselValidator : JsonValidator
     {
-        public ValidationResults validateData (JsonElement jsonData) Throws 
+        public ValidationResults validateData (JsonElement jsonData) 
         {          
-            try {
-                JsonSchema schema = JsonSchema.FromFile("./Validators/Experience/Widgets/carousel.schema.json");
+            
+            JsonSchema schema = JsonSchema.FromFile("./Validators/Experience/Widgets/carousel.schema.json");
 
-                return schema.Validate(jsonData);
-
-            } catch (Exception e) {
-                throw e;
-            }
+            return schema.Validate(jsonData);
         }
     }
 }
