@@ -1,6 +1,7 @@
-using System.Text.Json;
 using System;
+using System.Text.Json;
 using Json.Schema;
+
 
 namespace ExperienceSchemas
 {
@@ -9,34 +10,26 @@ namespace ExperienceSchemas
     {
         public ValidationResults validateData (JsonElement jsonData) 
         {          
-            // options for validation 
+            // options for validation //
             // expect to extract this out and pass it into the validateData function
 
             ValidationOptions options = new ValidationOptions();
-            // options.SchemaRegistry.Register()
-            options.OutputFormat = Json.Schema.OutputFormat.Verbose;
-
-            // trying to get the schema results to output
-            // ILog cl = new CarouselLogger();
-            // options.Log(cl)
-
-            // LogExtensions le = LogExtensions.Log();
-
-            // ValidationContext context = new ValidationContext();
             
+            options.OutputFormat = Json.Schema.OutputFormat.Verbose;
+            options.LogIndentLevel = 0;
 
-
-            // main validation schema
+            // main validation schema //
             JsonSchema schema = JsonSchema.FromFile("./Validators/Experience/Widgets/carousel.schema.json");
             
 
-            // dependency validation schemas
+            // dependency validation schemas //
             // image asset
             JsonSchema imageAssetSchema = JsonSchema.FromFile("./Validators/Experience/asset-image.schema.json");
             Uri imageUri = new Uri("https://wherever.com/schemas/ec/asset-image-art-directed.schema.json");
             SchemaRegistry.Global.Register(imageUri, imageAssetSchema);
 
             // docs indicate Register will take a string but i get a message cannot convert string to Uri
+            // https://gregsdennis.github.io/json-everything/usage/schema-references.html?q=ref
             // SchemaRegistry.Global.Register("https://wherever.com/schemas/ec/asset-image-art-directed.schema.json", imageAssetSchema);
             // SchemaRegistry.Global.Register("blah", imageAssetSchema);
 
@@ -55,13 +48,11 @@ namespace ExperienceSchemas
             Uri colorUri = new Uri("https://wherever.com/schemas/ec/rgb-color.schema.json");
             SchemaRegistry.Global.Register(colorUri, cssColorSchema);
 
+            // might need this instead of global
+            // options.SchemaRegistry.Register()
             ValidationResults results = schema.Validate(jsonData, options);
-            // results.ToDetailed();
-
             
-            
-            return results;
-            // return schema.Validate(jsonData, options);
+            return schema.Validate(jsonData, options);
         }
     }
 }

@@ -1,3 +1,4 @@
+
 {
     "$schema": "http://json-schema.org/draft-07/schema#",
     "$id": "https://wherever.com/schemas/ec/carousel.schema.json",
@@ -15,8 +16,7 @@
                 "properties": {
                     "asset": {
                         "oneOf": [ 
-                            { "$ref": "asset-image.schema.json" },
-                            { "$ref": "asset-video.schema.json" },
+                            { "type": "object" },
                             { "type": "null", "description": "can be null for assetType None"}
                         ]
                     },
@@ -25,17 +25,14 @@
                     "colorOption": { "type": "string", "enum": [ "BlackOverWhite", "WhiteOverBlack", "BlackNoBackground", "WhiteNoBackground", "Custom" ] },
                     "description": {"type":"string"},
                     "fontBackgroundColor": { 
-                        "$ref": "rgb-color.schema.json"
+                        "type": "string"
                     },
                     "fontColor": {
-                        "$ref": "rgb-color.schema.json"
+                        "type": "string"
                     },
                     "fontOpacity": { "type":"integer", "minimum": 1, "maximum": 100 },
                     "imageBackgroundColor": {
-                        "oneOf": [
-                            { "type": "null" },
-                            { "$ref": "rgb-color.schema.json" }
-                        ]
+                        "type": [ "null",  "string" ]
                     },
                     "itemPosition": { "type": "string", "enum": [ "Left", "Center", "Right" ] },
                     "link": { "type": [ "string", "null" ], "format": "uri-template" },

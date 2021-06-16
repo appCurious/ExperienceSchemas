@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Text.Json;
+using System.Text.Encodings.Web;
 using Json.Schema;
 
 namespace ExperienceSchemas
@@ -66,7 +67,7 @@ namespace ExperienceSchemas
                         ""fontColor"":""#000000"",
                         ""imageBackgroundColor"":null,
                         ""fontOpacity"":100,
-                        ""textWidth"":100,
+                        ""textWidth"":""blue"",
                         ""textPosition"":""Center""
                     }
                 ]
@@ -84,25 +85,10 @@ namespace ExperienceSchemas
             Console.WriteLine("Prepare to Validate");
             ValidationResults results = carouselValidator.validateData(jdoc.RootElement);
             
-            Console.Write("isValid: ");
-            Console.Write(results.IsValid);
-            Console.WriteLine("");
-            Console.Write("Result Messages: ");
+            // DisplayResults displayResults = JsonSerializer.Deserialize<DisplayResults>(JsonSerializer.Serialize(results, serializerOptions));
+            // displayResults.DisplayErrors();
 
-            // Console.WriteLine();
-            // Console.WriteLine();
-            string message = results.IsValid ? "Valid JSON" : !String.IsNullOrEmpty(results.Message) ? results.Message : "Oopsie Data Failed";
-            
-            if (results.NestedResults != null)
-            {
-                // iterate over the list of ValidationResults
-                // it might be the Message is only for true Exceptions
-                foreach (ValidationResults r in results.NestedResults) {
-                    message = !String.IsNullOrEmpty(r.Message) ? message + "\n" + r.Message : message;
-                }
-            }
-            // results.ToBasic(); // not sure what this option does did not change the message
-            Console.Write(message);
+            DisplayResults.ProcessResults(results);
             
         }
     }
