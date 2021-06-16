@@ -65,7 +65,7 @@ namespace ExperienceSchemas
             // Console.WriteLine(topLevelErrors);
             Console.WriteLine(elem);
             Console.WriteLine("more to see ");
-            Console.WriteLine(getErrorMessages(topLevelErrors, ""));
+            Console.WriteLine(getErrorMessages(topLevelErrors, message));
 
             
         }
@@ -74,14 +74,14 @@ namespace ExperienceSchemas
         {
             var message = "";
 
-            foreach (JsonElement node in elem.EnumerateArray())
-            {
-                JsonElement err = node.GetProperty("error");
-                string val = err.GetString();
-                message = !String.IsNullOrEmpty(val) && !String.Equals(IGNORE_MESSAGE, val) ? message + "\n" + val : message;
-            }
+            // foreach (JsonElement node in elem.EnumerateArray())
+            // {
+            //     JsonElement err = node.GetProperty("error");
+            //     string val = err.GetString();
+            //     message = !String.IsNullOrEmpty(val) && !String.Equals(IGNORE_MESSAGE, val) ? message + "\n" + val : message;
+            // }
 
-            return message;
+            return messages += message;
         }
         private static void DisplaySuccess () {
             Console.WriteLine("Valid JSON");
