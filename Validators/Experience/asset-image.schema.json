@@ -1,0 +1,37 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id": "https://wherever.com/schemas/ec/asset-image.schema.json",
+    
+    "type": "object",
+    "properties": {
+        "assetType": { "const": "Image" },
+        "assetId": {
+           "oneOf": [
+                { "type": "string", "format": "uuid" },
+                { "const": "" }
+            ]
+        },
+        "alt": { "type": "string" },
+        "originalHeight": { "type": "integer", "minimum": 1 },
+        "originalWidth": { "type": "integer", "minimum": 1 },
+        "url": { "type": "string", "format": "uri-template" },
+        "availableWidths": {
+            "type": "array",
+            "items": {
+               "type": "integer",
+               "minimum": 1
+            }
+        },
+        "mimeType": {
+            "description": "can be null for video poster",
+            "type": [ "string", "null" ]
+        },
+
+        "artDirectedAssets": {
+            "description": "CLEANUP",
+            "$ref": "asset-image-art-directed.schema.json"
+        }
+    },
+    "required": [ "assetType", "assetId", "alt", "originalHeight", "originalWidth", "url", "availableWidths" ],
+    "additionalProperties": false
+}

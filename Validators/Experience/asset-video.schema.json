@@ -1,0 +1,54 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id": "https://wherever.com/schemas/ec/asset-video.schema.json",
+    
+    "type": "object",
+    "properties": {
+        "assetType": { "const": "Video" },
+        "assetId": { "type": "string", "format": "uuid" },
+        "duration": { "type": "number", "minimum": 0 },
+        "originalHeight": { "type": "integer", "minimum": 1 },
+        "originalWidth": { "type": "integer", "minimum": 1 },
+        "url": { "type": "string", "format": "uri-template" },
+        "availableWidths": {
+            "type": "array",
+            "items": {
+               "type": "integer",
+               "minimum": 1
+            }
+        },
+        "mimeType": { "type": "string" },
+
+        "poster": {
+            "$ref": "asset-image.schema.json"
+        },
+        "sources": {
+            "type": "array",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "mimeType": { "type": "string" },
+                    "url": { "type": "string", "format": "uri-template" }
+                },
+                "required": [ "mimeType", "url" ],
+                "additionalProperties": false
+            }
+        },
+        "tracks": {
+            "type": "array",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "kind": { "type": "string", "enum": [ "captions", "subtitles", "descriptions" ] },
+                    "srcLang": { "type": "string" },
+                    "url": { "type": "string", "format": "uri-template" }
+                },
+                "required": [ "kind", "srcLang", "url" ],
+                "additionalProperties": false
+            }
+        }
+
+    },
+    "required": [ "assetType", "assetId", "duration", "originalHeight", "originalWidth", "poster", "sources", "tracks", "availableWidths" ],
+    "additionalProperties": false
+}

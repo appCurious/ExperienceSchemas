@@ -65,13 +65,20 @@ namespace ExperienceSchemas
                         ""fontBackgroundColor"":""#ffffff"",
                         ""fontColor"":""#000000"",
                         ""imageBackgroundColor"":null,
-                        ""fontOpacity"":""blue"",
+                        ""fontOpacity"":100,
                         ""textWidth"":100,
                         ""textPosition"":""Center""
                     }
                 ]
             }";
+
             JsonValidator carouselValidator = new CarouselValidator();
+
+            // will most likely be using Objects and Widgets like Carousel widget and components and serializing instead
+            // string jstring = JsonSerializer.Serialize(carouselWidget);
+            // JsonDocument jdoc = JsonDocument.Parse(jstring);  
+        
+            // proof of concept utilize static string
             JsonDocument jdoc = JsonDocument.Parse(carouselData);
 
             Console.WriteLine("Prepare to Validate");
@@ -81,17 +88,22 @@ namespace ExperienceSchemas
             Console.Write(results.IsValid);
             Console.WriteLine("");
             Console.Write("Result Messages: ");
-            string message = results.Message != null ? results.Message : "Valid JSON";
+
+            // Console.WriteLine();
+            // Console.WriteLine();
+            string message = results.IsValid ? "Valid JSON" : !String.IsNullOrEmpty(results.Message) ? results.Message : "Oopsie Data Failed";
+            
             if (results.NestedResults != null)
             {
                 // iterate over the list of ValidationResults
                 // it might be the Message is only for true Exceptions
                 foreach (ValidationResults r in results.NestedResults) {
-                    message = message + "\n" + r.Message;
+                    message = !String.IsNullOrEmpty(r.Message) ? message + "\n" + r.Message : message;
                 }
             }
-            results.ToBasic();
-            Console.Write(results.Message);
+            // results.ToBasic(); // not sure what this option does did not change the message
+            Console.Write(message);
+            
         }
     }
 }
