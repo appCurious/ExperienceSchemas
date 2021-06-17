@@ -67,7 +67,7 @@ namespace ExperienceSchemas
                         ""fontColor"":""#000000"",
                         ""imageBackgroundColor"":null,
                         ""fontOpacity"":100,
-                        ""textWidth"":""blue"",
+                        ""textWidth"":100,
                         ""textPosition"":""Center""
                     }
                 ]
