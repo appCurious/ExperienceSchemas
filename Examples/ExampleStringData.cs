@@ -72,11 +72,7 @@ namespace ExperienceSchemas
                 ]
             }";
 
-            JsonValidator carouselValidator = new CarouselValidator();
-
-            // will most likely be using Objects and Widgets like Carousel widget and components and serializing instead
-            // string jstring = JsonSerializer.Serialize(carouselWidget);
-            // JsonDocument jdoc = JsonDocument.Parse(jstring);  
+            IJsonValidator carouselValidator = new CarouselValidator();
         
             // proof of concept utilize static string
             JsonDocument jdoc = JsonDocument.Parse(carouselData);

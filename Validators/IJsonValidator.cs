@@ -3,7 +3,7 @@ using Json.Schema;
 
 namespace ExperienceSchemas
 {
-    interface JsonValidator
+    interface IJsonValidator
     {
         public ValidationResults validateData (JsonElement jsonData);
     }

@@ -6,7 +6,7 @@ using Json.Schema;
 namespace ExperienceSchemas
 {
    
-    class CarouselValidator : JsonValidator
+    class CarouselValidator : IJsonValidator
     {
         public ValidationResults validateData (JsonElement jsonData) 
         {          

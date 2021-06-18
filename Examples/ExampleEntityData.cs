@@ -17,7 +17,7 @@ namespace ExperienceSchemas
             JsonSerializerOptions serialOptions = new JsonSerializerOptions(JsonSerializerDefaults.Web);
             string exampleWidgetData = JsonSerializer.Serialize(widget, serialOptions);
             
-            JsonValidator exampleValidator = new ExampleWidgetValidator();
+            IJsonValidator exampleValidator = new ExampleWidgetValidator();
         
             // proof of concept utilize serialized entity string
             JsonDocument jdoc = JsonDocument.Parse(exampleWidgetData);
