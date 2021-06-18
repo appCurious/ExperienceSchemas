@@ -69,7 +69,7 @@ namespace ExperienceSchemas
             //      }
             //  ]
             JsonElementSearchResult topLevelErrors = getElement(elem, "errors");
-            message = topLevelErrors.HasKeyword ? message + getErrorMessages(topLevelErrors.Element) : message;
+            message = topLevelErrors.HasKeyword ? message + getErrorMessages(topLevelErrors.Element) +  "\n\nEnd Schema Errors" : message;
             
             if (showResultStructure) {
                 Console.WriteLine(elem);

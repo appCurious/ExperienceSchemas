@@ -25,7 +25,7 @@ namespace ExperienceSchemas
             // - now that is a challenge
             // - so far my results indicate there is a problem
             // - but it is identified using a human readable string
-            Console.WriteLine("*** Entity Validation ***");
+            Console.WriteLine("\n*** Entity Validation ***");
             IExampleValidator entityValidator = new ExampleEntityData();
             entityValidator.ProcessResults(entityValidator.RunExample(), showResultStructure);
             
