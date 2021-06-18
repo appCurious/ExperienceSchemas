@@ -118,17 +118,19 @@ namespace ExperienceSchemas
             return messages += message;
         }
 
-        private static JsonElementSearchResult getElement (JsonElement elem, string keyword="") {
+        public static JsonElementSearchResult getElement (JsonElement elem, string keyword="") {
             JsonElementSearchResult searchResult = new JsonElementSearchResult();
             searchResult.HasKeyword = false;
 
-             try {
+            try {
+
                 JsonElement foundElement = elem.GetProperty(keyword);
                 searchResult.HasKeyword = true;
                 searchResult.Element = foundElement;
 
             } catch (KeyNotFoundException e) {
                 // nothing to do - there are no remaining errors to traverse
+                searchResult.Message = e.Message;
                 return searchResult;
             }
 
@@ -146,11 +148,6 @@ namespace ExperienceSchemas
             DisplayMessageTemplate(true);
             string message = "Valid JSON";
             Console.WriteLine(message);
-        }
-
-        private class JsonElementSearchResult {
-            public bool HasKeyword {get; set;}
-            public JsonElement Element {get; set;}
         }
     }
 }
