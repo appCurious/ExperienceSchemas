@@ -6,34 +6,28 @@ using Json.Schema;
 
 namespace ExperienceSchemas
 {
-    static class DisplayResults 
+    static class ProcessResults 
     {
         // for some reason every single json value is set as a failure if 1 fails
         // maybe there is a config to avoid that?
         // ignore the useless data
         private static string IGNORE_MESSAGE = "All values fail against the false schema";
-        public static void ProcessResults(ValidationResults results)
+        public static void Process(ValidationResults results, bool showResultStructure = false)
         {
-            Console.Write("isValid: ");
-            Console.Write(results.IsValid);
-            Console.WriteLine("");
-            Console.Write("Result Messages: ");
-
-
             if ( results.IsValid )
             {
                 // when result is valid the results.Message isn't empty.
                 // it was a new line character - perhaps in the future the message will be populated with something?
                 DisplaySuccess(results.Message);
             } else {
-                DisplayErrors(results);
+                DisplayErrors(results, showResultStructure);
             }
         }
 
-        private static void DisplayErrors (ValidationResults results) {
+        private static void DisplayErrors (ValidationResults results, bool showResultStructure) {
 
             // process errors and exceptions captured by validation process
-            string message = !String.IsNullOrEmpty(results.Message) ? results.Message : "No Process Errors On Main Schema";
+            string message = !String.IsNullOrEmpty(results.Message) ? results.Message : "\nNo Process Errors On Main Schema";
             
             if ( results.NestedResults.Count > 0 )
             {
@@ -51,6 +45,8 @@ namespace ExperienceSchemas
                 {
                     message = message + "\nNo Process Errors In Nested Results";
                 }
+
+                message += "\n\nSchema Errors:\n";
             }
 
             // validation errors capture by schema validator
@@ -73,11 +69,14 @@ namespace ExperienceSchemas
             //      }
             //  ]
             JsonElementSearchResult topLevelErrors = getElement(elem, "errors");
-            message = topLevelErrors.HasKeyword ? message + "\n" + getErrorMessages(topLevelErrors.Element) : message;
-            Console.WriteLine(elem);
+            message = topLevelErrors.HasKeyword ? message + getErrorMessages(topLevelErrors.Element) : message;
+            
+            if (showResultStructure) {
+                Console.WriteLine(elem);
+            }
+            
+            DisplayMessageTemplate(false);
             Console.WriteLine(message);
-            // Console.WriteLine(getErrorMessages(topLevelErrors));
-
             
         }
 
@@ -135,7 +134,16 @@ namespace ExperienceSchemas
 
             return searchResult;
         }
+
+        private static void DisplayMessageTemplate(bool IsValid)
+        {
+            Console.Write("isValid: ");
+            Console.Write(IsValid);
+            Console.WriteLine("");
+            Console.Write("Result Messages: ");
+        }
         private static void DisplaySuccess (string messages) {
+            DisplayMessageTemplate(true);
             string message = "Valid JSON";
             Console.WriteLine(message);
         }

@@ -29,7 +29,7 @@
 
         "artDirectedAssets": {
             "description": "CLEANUP",
-            "$ref": "asset-image-art-directed.schema.json"
+            "$ref": "https://wherever.com/schemas/ec/asset-image-art-directed.schema.json"
         }
     },
     "required": [ "assetType", "assetId", "alt", "originalHeight", "originalWidth", "url", "availableWidths" ],

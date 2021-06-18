@@ -20,7 +20,7 @@
         "mimeType": { "type": "string" },
 
         "poster": {
-            "$ref": "asset-image.schema.json"
+            "$ref": "https://wherever.com/schemas/ec/asset-image.schema.json"
         },
         "sources": {
             "type": "array",

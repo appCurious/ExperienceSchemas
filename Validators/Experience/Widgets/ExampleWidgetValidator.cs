@@ -6,7 +6,7 @@ using Json.Schema;
 namespace ExperienceSchemas
 {
    
-    class CarouselValidator : JsonValidator
+    class ExampleWidgetValidator : JsonValidator
     {
         public ValidationResults validateData (JsonElement jsonData) 
         {          
@@ -17,8 +17,9 @@ namespace ExperienceSchemas
             // verbose makes the schema failure location and keyword available
             options.OutputFormat = Json.Schema.OutputFormat.Verbose;
 
+// make this schema !!!! 
             // main validation schema //
-            JsonSchema schema = JsonSchema.FromFile("./Validators/Experience/Widgets/carousel.schema.json");
+            JsonSchema schema = JsonSchema.FromFile("./Validators/Experience/Widgets/example-widget.schema.json");
 
             // dependency validation schemas //
             // image asset
