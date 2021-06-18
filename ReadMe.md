@@ -1,5 +1,5 @@
 # Experience Schemas
-Working to validate Enhanced Content Experiences and Experience Widget data against known JSON schemas.
+Working to validate JSON data against known JSON schemas.
 
 ## JSON Schema Target
 We will target JSON Schema Drafts >= 7.
@@ -15,7 +15,11 @@ dotnet run true
 ```
 
 ## Conclusion
-Yes it is possible to run a JSON validation test against a JSON Schema.  The results come back with a nice boolean indication of success / failure   IsValid.   Thre is an option to retrieve the the JSON path and Keyword for the schema failure.  However I have not been successful at programatically identifying what the failure is.  Identifying the reason for failure such as value did not match an enum value, or the const value or was null is essential to fixing the data.
+Yes it is possible to run a JSON validation test against a JSON Schema.  The results come back with a nice boolean indication of success / failure   IsValid.   Thre is an option to retrieve the the JSON path and Keyword for the schema failure.  
+
+However I have not been successful at programatically identifying what the failure is.  Identifying the reason for failure such as value did not match an enum value, or the const value or was null is essential to fixing the data.
+
+It may be more effective to break the schemas down to specifically target an Entity or an Entity's value for the purpose of being able to fix the problem value with a known default.
 
 
 ## Resource Links
