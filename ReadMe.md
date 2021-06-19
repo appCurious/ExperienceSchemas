@@ -4,14 +4,29 @@ Working to validate JSON data against known JSON schemas.
 ## JSON Schema Target
 We will target JSON Schema Drafts >= 7.
 
-## Test Run
+## Args
+
+```
+args[0] true | false controls displaying the result structure in the console
+args[1] true | false controls console logs
+args[2] fully qualified Validator to run - factory will instantiate
+args[3] serialized json to validate
+```
+## Run Test / Demo
+Must only use the first 2 args in order for the Examples to run
 Example data, schemas and widget are set up to run a successful test and a failed test
+
 ```
-dotnet run
+dotnet run false true
 ```
-Display the json structure for the failed result - a value in the first argument will work
+Display the json structure for the failed result - a value other than false in the first argument will work
 ```
-dotnet run true
+dotnet run true true
+```
+## Run Actual Validator
+Must have all 4 args entered in order for a real validator to run
+```
+dotnet run true false ExperienceSchema.ValidatorNameToRun "{""jsonParam"":""jsonParamValue""}"
 ```
 
 ## Conclusion
