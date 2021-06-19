@@ -6,7 +6,7 @@ namespace ExperienceSchemas
 {
     class ExampleStringData : IExampleValidator
     {
-        public ValidationResults RunExample ()
+        public ValidationResults RunExample (ValidationProcessorOptions processorOptions)
         {
             string carouselData = @"{
                 ""widgetId"":""2dae289c-8eba-59eb-eba5-ae12704385e5"",
@@ -72,6 +72,9 @@ namespace ExperienceSchemas
                 ]
             }";
 
+
+            // using the processorOptions we could call the real ValidationProcessor
+            // this Example file was the original proof of concept for the ValidatorProcessor
             IJsonValidator carouselValidator = new CarouselValidator();
         
             // proof of concept utilize static string
@@ -84,8 +87,8 @@ namespace ExperienceSchemas
             
         }
 
-        public void ProcessResults (ValidationResults results, bool showResultStructure) {
-            ExperienceSchemas.ProcessResults.Process(results, showResultStructure);
+        public void ProcessResults (ValidationResults results, ValidationProcessorOptions processorOptions) {
+            ExperienceSchemas.ValidationResultProcessor.Process(results, processorOptions);
         }
     }
 }
