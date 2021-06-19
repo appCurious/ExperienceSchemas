@@ -3,7 +3,7 @@ namespace ExperienceSchemas
 {
     public interface IExampleValidator
     {
-        public ValidationResults RunExample ();
-        public void ProcessResults (ValidationResults results, bool showResultStructure);
+        public ValidationResults RunExample (ValidationProcessorOptions processorOptions);
+        public void ProcessResults (ValidationResults results, ValidationProcessorOptions processorOptions);
     }
 }

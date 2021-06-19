@@ -1,35 +1,52 @@
 using System;
+using System.Collections.Generic;
 using System.Text.Json;
+using System.Text.Encodings.Web;
 using Json.Schema;
 
 namespace ExperienceSchemas
 {
     public static class ValidatorProcessor
     {
-        public static string RunProcessor (bool showResultStructure, string qualifiedValidatorClass, string dotnetSerializedJsonString)
+        public static string RunProcessor (ValidationProcessorOptions processorOptions)
         {
             ProcessorResults processorResults = new ProcessorResults();
-            JsonSerializerOptions serialOptions = new JsonSerializerOptions(JsonSerializerDefaults.Web);
+            // JsonSerializerOptions serialOptions = new JsonSerializerOptions(JsonSerializerDefaults.Web);
+            JsonSerializerOptions serialOptions = new JsonSerializerOptions
+			{
+				WriteIndented = processorOptions.LogToConsole,
+                Encoder = processorOptions.LogToConsole ? JavaScriptEncoder.UnsafeRelaxedJsonEscaping : JavaScriptEncoder.Default
+			};
 
             try {
-                IJsonValidator validator = GetValidator(qualifiedValidatorClass);
-                JsonElementSearchResult jsonReady = ConvertStringToJsonElement(dotnetSerializedJsonString);
+                IJsonValidator validator = GetValidator(processorOptions.QualifiedValidatorClass);
+                JsonElementSearchResult jsonReady = ConvertStringToJsonElement(processorOptions.DotnetSerializedJsonString);
+
+                // // CodeDevelopment testing and verification 
+                // Type t = validator.GetType();
+                // Console.WriteLine($"created {t.FullName}");
 
                 if (jsonReady.HasKeyword)
                 {
                     ValidationResults results = validator.validateData(jsonReady.Element);
-                    Type t = validator.GetType();
-                    Console.WriteLine($"created {t.FullName}");
+                    // // CodeDevelopment testing and verification 
+                    // Console.WriteLine("HasKeyword = True");
 
-                    processorResults.Results = ProcessResults (results, showResultStructure);
+                    processorResults = Process(results, processorOptions);
                 } else {
                     // json did not find the root element from the json parsing, but it didn't fail parsing either
-                    processorResults.ErrorMessage = "JSON parsing did not result in a testable structure";
+                    processorResults.ErrorMessages.Add("JSON parsing did not result in a testable structure");
+                    if (processorOptions.LogToConsole) {
+                        Console.WriteLine("JSON parsing did not result in a testable structure");
+                    }
                 }
 
             } catch (Exception e) {
-                Console.WriteLine(e.ToString());
-                processorResults.ErrorMessage = e.Message;
+                if (processorOptions.LogToConsole) {
+                    Console.WriteLine(e.ToString());
+                }
+                
+                processorResults.ErrorMessages.Add(e.Message);
 
                 return JsonSerializer.Serialize(processorResults, serialOptions);
             }
@@ -70,21 +87,16 @@ namespace ExperienceSchemas
             return validator;
         }
 
-        public static string ProcessResults (ValidationResults results, bool showResultStructure) {
+        public static ProcessorResults Process (ValidationResults results, ValidationProcessorOptions processorOptions) {
             //TODO extract the ProcessResults.cs functionality into here to build an object that can be serialized
             // process message on main result and on nested results
             // process nested errors --> retrieve the error, location and keyword
             // create a list of the errors
 
             // TODO maybe just rebuild the ProcessResults to return an object that can be serialized
+            ProcessorResults processorResult = ProcessResults.Process(results, processorOptions);
 
-            return JsonSerializer.Serialize(results);
-        }
-        
-        public class ProcessorResults
-        {
-            public string ErrorMessage { get; set; }
-            public string Results { get; set; }
+            return processorResult;
         }
     }
 
