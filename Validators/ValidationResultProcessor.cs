@@ -6,7 +6,7 @@ using Json.Schema;
 
 namespace ExperienceSchemas
 {
-    static class ProcessResults
+    static class ValidationResultProcessor
     {
         // for some reason every single json value is set as a failure if 1 fails
         // maybe there is a config to avoid that?

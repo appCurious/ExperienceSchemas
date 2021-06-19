@@ -6,7 +6,7 @@ using Json.Schema;
 
 namespace ExperienceSchemas
 {
-    public static class ValidatorProcessor
+    public static class ValidationProcessor
     {
         public static string RunProcessor (ValidationProcessorOptions processorOptions)
         {
@@ -94,7 +94,7 @@ namespace ExperienceSchemas
             // create a list of the errors
 
             // TODO maybe just rebuild the ProcessResults to return an object that can be serialized
-            ProcessorResults processorResult = ProcessResults.Process(results, processorOptions);
+            ProcessorResults processorResult = ValidationResultProcessor.Process(results, processorOptions);
 
             return processorResult;
         }

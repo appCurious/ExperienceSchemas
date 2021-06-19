@@ -88,7 +88,7 @@ namespace ExperienceSchemas
         }
 
         public void ProcessResults (ValidationResults results, ValidationProcessorOptions processorOptions) {
-            ExperienceSchemas.ProcessResults.Process(results, processorOptions);
+            ExperienceSchemas.ValidationResultProcessor.Process(results, processorOptions);
         }
     }
 }

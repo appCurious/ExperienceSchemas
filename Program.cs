@@ -27,7 +27,7 @@ namespace ExperienceSchemas
 
                 processorOptions.QualifiedValidatorClass = args[2];
                 processorOptions.DotnetSerializedJsonString = args[3];
-                string validationResult = ValidatorProcessor.RunProcessor(processorOptions);
+                string validationResult = ValidationProcessor.RunProcessor(processorOptions);
                 
                 // provide the output to the calling program using the console
                 Console.WriteLine(validationResult);
@@ -51,7 +51,7 @@ namespace ExperienceSchemas
                 entityValidator.ProcessResults(entityValidator.RunExample(processorOptions), processorOptions);
 
                 Console.WriteLine("\n*** Entity LookUp ***");
-                IJsonValidator validator = ValidatorProcessor.GetValidator("ExperienceSchemas.CarouselValidator");
+                IJsonValidator validator = ValidationProcessor.GetValidator("ExperienceSchemas.CarouselValidator");
                 Type t = validator.GetType();
                 Console.WriteLine(t.FullName);
             }
